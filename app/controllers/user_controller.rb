@@ -23,7 +23,6 @@ class UserController < ApplicationController
   def login
   	@user = User.find_by(username: params[:username], password: params[:password])
   	if(@user == nil)
-  		@user.update_attributes(isLoggedIn: false)
   		render :json => {"Type": "500" "Unsuccessful"}
   	else
   		@user.update_attributes(isLoggedIn: true)
@@ -51,7 +50,6 @@ class UserController < ApplicationController
   def calculateShortestDistance(users, original_lat, original_long)
   	require 'json'
   	users.to_json
-  	distance_arr = []
   	for user in @users
   	  @new_lat = user.latitude
   	  @new_long = user.longitude
