@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get 'user/logout/:username/:password' => 'user#logout'
   get 'user/index/:username/:password' => 'user#index'
   get 'user/near/:username/:password' => 'user#near'
+  get 'user/test' => 'user#test'
 end
