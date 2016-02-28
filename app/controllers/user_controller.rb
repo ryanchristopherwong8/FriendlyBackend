@@ -23,7 +23,6 @@ class UserController < ApplicationController
   def login
   	@user = User.find_by(username: params[:username], password: params[:password])
   	if(@user == nil)
-  		@user.update_attributes(isLoggedIn: false)
   		render :json => {"Type": "201" "Unsuccessful"}
   	else
   		@user.update_attributes(isLoggedIn: true)
@@ -32,7 +31,8 @@ class UserController < ApplicationController
   end
 
   def logout
-    User.where(username: params[:username], password: params[:password]).update_attribute(isLoggedIn: false)
+    User.find_by(username: params[:username], password: params[:password]).update_attributes(isLoggedIn: false)
+    render :json =>{"Type": "500", "Message": "Success, you are logged out."}
   end
 
 
