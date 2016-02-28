@@ -12,17 +12,18 @@ class UserController < ApplicationController
   end
 
   def edit_location
-  	User.find(params[:id]).update_attributes(longitude: params[:longitude], latitude: params[:latitude])
+  	User.find_by(username: params[:username], password: params[:password]).update_attributes(longitude: params[:longitude], latitude: params[:latitude])
   end
 
   def index
-  	@users = User.where.not(id: params[:id])
+  	@users = User.where.not(username: params[:username])
   	render :json => @users
   end
 
   def login
   	@user = User.find_by(username: params[:username], password: params[:password])
   	if(@user == nil)
+  		@user.update_attributes(isLoggedIn: false)
   		render :json => {"Type": "500" "Unsuccessful"}
   	else
   		@user.update_attributes(isLoggedIn: true)
@@ -35,6 +36,16 @@ class UserController < ApplicationController
     render :json =>{"Type": "201", "Message": "Success, you are logged out."}
   end
 
+  def near
+	  	@user = User.find_by(username: params[:username], password: params[:password])
+	  	@lat = @user.latitude
+	  	@long = @user.longitude
+	  	require 'json'
+	  	@lat.to_json
+	  	@long.to_json
+	  	@users = User.within(600, :units => :kms, :origin => [@user.latitude, @user.longitude])
+	  	render :json => @users
+  	end
 
   def test
   	@user = User.find(1)
