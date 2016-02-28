@@ -5,8 +5,9 @@ class UserController < ApplicationController
   	if(!User.exists?(username: params[:username]))
   		@user = User.new(username: params[:username], password: params[:password], firstname: params[:firstname], lastname: params[:lastname])
   		@user.save
+  		render :json => {"Type": "201", "Message": "Success, your account has been created."}
   	else 
-  		render :json => {"Error": "Please choose a new username"}
+  		render :json => {"Type": "500", "Message": "Please choose a new username."}
   	end
   end
 
@@ -15,22 +16,20 @@ class UserController < ApplicationController
   end
 
   def index
-  	@users = User.all
-  	respond_to do |format|
-  		format.json { render :json => @users}
-  	end
+  	@users = User.where.not(id: params[:id])
+  	render :json => @users
   end
 
   def login
-  	@boolean = User.exists?(username: params[:username], password: params[:password])
-  	if(@boolean == true)
-  		render :json => {"LoggedIn":  "Success"}
-  	else
+  	#@user = User.find_by_username_and_password(username: params[:username], password: params[:password])
+  	if(user == nil)
   		render :json => {"LoggedIn": "Unsuccessful"}
+  	else
+  		render :json => {"LoggedIn":  "Success"}
   	end
   end
 
-  def create2
+  def test
   	@user = User.find(1)
   	render :json => {"Gender": "Male"}
   end
