@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+gem 'devise'
 gem 'geokit-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
@@ -34,9 +34,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rails_12factor', group: :production
 ruby "2.3.0"
 
-group :development, :test do
+group :test do
+  gem "rspec-rails", "~> 2.14"
+  gem "factory_girl_rails"
+  gem 'ffaker'
+  gem "shoulda-matchers"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  #gem 'byebug'
 end
 
 group :development do
