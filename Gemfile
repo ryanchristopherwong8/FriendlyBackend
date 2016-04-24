@@ -23,15 +23,19 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
 
-# Use Unicorn as the app server
-# gem 'unicorn'
+#sabisu is great when application becomes very large, more api endpoints, which causes more complex json
+#sabisu is like postman, helps with reading json and sending requests with rails server
+#these gems are to decrease learning curve when integrating with other people
+gem 'sabisu_rails', github: "IcaliaLabs/sabisu-rails"
+#version fixes error with compass-rails and sabisu
+gem 'compass-rails', '~> 2.0.4'
+gem 'furatto'
+gem 'font-awesome-rails'
+gem 'simple_form'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 gem 'rails_12factor', group: :production
+
 ruby "2.3.0"
 
 group :test do

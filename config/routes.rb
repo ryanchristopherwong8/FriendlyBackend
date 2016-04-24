@@ -1,6 +1,7 @@
 require 'api_constraints'
 
 Friendly::Application.routes.draw do
+  mount SabisuRails::Engine => "/sabisu_rails"
   devise_for :users
   # Api definition
   # namespace is used to match directory in controller folder
