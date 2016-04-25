@@ -13,7 +13,8 @@ Friendly::Application.routes.draw do
   	#default means if version does not exist redirect to version 1
     scope module: :v1,
       constraints: ApiConstraints.new(version: 1, default: true) do
-      	resources :users, :only => [:show, :create, :update, :destroy]  	
+      	resources :users, :only => [:show, :create, :update, :destroy]
+      	resources :sessions, :only => [:create, :destroy]  	
     end
   end
 end

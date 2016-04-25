@@ -72,6 +72,8 @@ RSpec.configure do |config|
   config.include Request::JsonHelpers, :type => :controller
   #includes model request/HeadersHelpers, refactoring code in users_controller_spec.rb
   config.include Request::HeadersHelpers, :type => :controller
+  #includes devise test helpers, needed for sessions_controller.rb
+  config.include Devise::TestHelpers, :type => :controller
 
   config.before(:each, type: :controller) do
     include_default_accept_headers
