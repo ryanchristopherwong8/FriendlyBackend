@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Api::V1::UsersController do
+	#removes format json from each request
   before(:each) { request.headers['Accept'] = "application/vnd.friendly.v1 , #{Mime::JSON}" }
   before(:each) { request.headers['Content-Type'] = Mime::JSON.to_s }
 
