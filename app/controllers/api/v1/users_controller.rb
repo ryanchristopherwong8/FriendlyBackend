@@ -1,5 +1,7 @@
 class Api::V1::UsersController < ApplicationController
   respond_to :json
+  #before update and destroy check authentication
+  before_action :authenticate_with_token!, only: [:update, :destroy]
 
   def show
     respond_with User.find(params[:id])
@@ -15,7 +17,10 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
- 		user = User.find(params[:id])
+  	#gets user using current_user
+  	#the method has been overrided so that it gets current_user by authentication token from request headers
+ 		user = current_user
+
   	if user.update(user_params)
     	render json: user, status: 200, location: [:api, user]
   	else
@@ -24,10 +29,10 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-  	user = User.find(params[:id])
-  	user.destroy
-  	head 204
-	end
+  	#uses overrided current_user method
+    current_user.destroy
+    head 204
+  end
 
   private
 
