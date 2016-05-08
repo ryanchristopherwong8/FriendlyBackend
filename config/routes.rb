@@ -2,7 +2,8 @@ require 'api_constraints'
 
 Friendly::Application.routes.draw do
   mount SabisuRails::Engine => "/sabisu_rails"
-  devise_for :users
+  #trick devise to using our registration controller, to respond to json
+  devise_for :users, :controllers => {registrations: 'registrations'}  
   # Api definition
   # namespace is used to match directory in controller folder
   # the path backslash / tells rails to look in the root of the subdomain
