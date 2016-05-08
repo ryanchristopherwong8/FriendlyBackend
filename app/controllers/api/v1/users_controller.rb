@@ -21,7 +21,7 @@ class Api::V1::UsersController < ApplicationController
   	#the method has been overrided so that it gets current_user by authentication token from request headers
  		user = current_user
 
-  	if user.update(user_params)
+  	if user.update(user_params_distance)
     	render json: user, status: 200, location: [:api, user]
   	else
     	render json: { errors: user.errors }, status: 422
@@ -37,6 +37,11 @@ class Api::V1::UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
+  private
+  def user_params_distance
+    params.require(:user).permit(:longitude, :latitude)
   end
 end
 
